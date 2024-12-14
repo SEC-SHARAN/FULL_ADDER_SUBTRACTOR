@@ -44,26 +44,36 @@ Write the detailed procedure here
 
 **Program:**
 ```
-*Half_adder*
-module HALFADDER(a,b,sum,carry);
-input a,b;
-output sum,carry; 
- assign sum = a^b;
- assign carry = a & b;
-endmodule
+full add
 
-*Half_subtractor*
-module SUB(a,b,D,Bo);
-input a,b;
-output D,Bo; // Outputs sum and carry for half adder:Outputs difference D,Borrow Bo for half subtractor
-assign D = a ^ b;
-  assign Bo = ~a & b;
+module FULLADD(a,b,cin,sum,carry);
+input a,b,cin;
+output sum,carry;
+wire w1,w2,w3,w4;       
+xor(w1,a,b);
+xor(sum,w1,cin);        
+
+and(w2,a,b);
+and(w3,b,cin);
+and(w4,cin,a);
+
+or(carry,w2,w3,w4);
+endmodule 
+
+
+full sub
+module FULLSUB(a,b,Bin,BO,DIFF);
+input a,b,Bin;
+output BO,DIFF;
+assign DIFF = a ^ b ^ Bin;
+  assign BO = (a & b) | ((a ^ b) & Bin);
 endmodule
 ```
 /* Program to design a half subtractor and full subtractor circuit and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
 */
 
 **RTL Schematic**
+![Screenshot 2024-12-10 142623](https://github.com/user-attachments/assets/339b8139-6223-448f-a20f-4d2bbb79d324)
 ![Screenshot 2024-12-09 105359](https://github.com/user-attachments/assets/8b9423ce-effa-4a97-a8c2-b0aa5bef211f)
 
 **Output Timing Waveform**
